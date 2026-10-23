@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PantryPilot — Alexa+ MCP Simulator</title>
+<link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+<header>
+  <div class="logo">PP</div>
+  <div>
+    <h1>PantryPilot</h1>
+    <p>Alexa+ that actually knows your kitchen · MCP Server (spec 2025-11-25)</p>
+  </div>
+  <span id="status" class="badge">connecting…</span>
+</header>
+
+<section class="stats" id="stats">
+  <div class="stat"><span class="stat-num" id="st-items">–</span><span class="stat-label">Items tracked</span></div>
+  <div class="stat"><span class="stat-num blue" id="st-risk">–</span><span class="stat-label">Expiring ≤ 5 days</span></div>
+  <div class="stat"><span class="stat-num blue" id="st-value">–</span><span class="stat-label">At-risk value</span></div>
+  <div class="stat"><span class="stat-num" id="st-score">–</span><span class="stat-label">Waste score / 100</span></div>
+  <div class="stat"><span class="stat-num" id="st-saved">–</span><span class="stat-label">Saved this month</span></div>
+  <div class="stat"><span class="stat-num" id="st-meals">–</span><span class="stat-label">Meals rescued</span></div>
+</section>
+
+<main>
+  <section class="chat-panel">
+    <div id="chat" class="chat">
+      <div class="msg alexa">
+        <strong>Alexa+</strong>
+        <p>Hi Faiyaz — I'm connected to your PantryPilot kitchen server: 24 items, 9 tools. Ask me what's expiring, what to cook tonight, plan my week, show my waste report, or check your protein options.</p>
+      </div>
+    </div>
+    <div class="chips">
+      <button class="chip">What's expiring soon?</button>
+      <button class="chip">What should I cook tonight?</button>
+      <button class="chip">Plan my next 5 dinners</button>
+      <button class="chip">Show my waste report</button>
+      <button class="chip">What are my high-protein options?</button>
+      <button class="chip">What's in my fridge?</button>
+      <button class="chip">Add eggs to my grocery list</button>
+      <button class="chip">Something quick, under 20 minutes</button>
+    </div>
+    <form id="composer">
+      <input id="input" placeholder="Ask Alexa+ about your kitchen…" autocomplete="off">
+      <button type="submit">Send</button>
+    </form>
+  </section>
+
+  <aside class="side">
+    <div class="card">
+      <h2>Live Pantry <small>via MCP get_inventory</small></h2>
+      <ul id="inventory" class="inv"></ul>
+    </div>
+    <div class="card">
+      <h2>This Week's Rescue Plan <small>via MCP get_meal_plan</small></h2>
+      <ol id="mealplan" class="plan"></ol>
+    </div>
+    <div class="card">
+      <h2>Grocery List <small>via MCP</small></h2>
+      <ul id="grocery" class="inv"></ul>
+    </div>
+    <div class="card tech">
+      <h2>How this works</h2>
+      <p>Every answer comes from a <strong>real tool call</strong> to the self-hosted PantryPilot MCP server at <code>POST /mcp</code> (Streamable HTTP, JSON-RPC 2.0) — 9 tools covering inventory, expiry rescue, recipe ranking, meal planning, waste &amp; savings, and nutrition. The tool-call cards in chat are the actual MCP traffic.</p>
+    </div>
+  </aside>
+</main>
+
+<script src="/app.js"></script>
+</body>
+</html>
